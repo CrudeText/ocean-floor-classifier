@@ -150,7 +150,7 @@ models/run_<timestamp>/inference_results/
 
 ## License
 
-MIT © Your Name
+MIT © William Arranz
 
 ---
 
