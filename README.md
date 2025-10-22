@@ -127,7 +127,7 @@ models/run_<timestamp>/inference_results/
 
 ## Examples
 
-**Raw Input**
+**Raw Input (taken in Trébeurden, France)**
 
 ![Raw example](data/examples/raw_example.JPG)
 
@@ -142,7 +142,7 @@ models/run_<timestamp>/inference_results/
 - Rock slice:  
   ![Rock slice](data/examples/slice_example_3.png)
 
-**Inference Overlay**
+**Inference Overlay (on another image)**
 
 ![Inference result](data/examples/inference_example.JPG)
 
