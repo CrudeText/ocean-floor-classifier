@@ -127,9 +127,10 @@ models/run_<timestamp>/inference_results/
 
 ## Examples
 
-**Raw Input (taken in Trébeurden, France)**
+**Raw Input **
 
 ![Raw example](data/examples/raw_example.JPG)
+(taken in Trébeurden, France)
 
 **Sliced Tiles**
 
