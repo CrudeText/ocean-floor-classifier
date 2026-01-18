@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ocean-floor-classifier"
+version = "0.2.0"
+description = "Ocean floor classification tool"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "PySide6",
+    "numpy",
+    "pandas",
+    "Pillow",
+    "opencv-python",
+    "torch",
+    "torchvision",
+    "scikit-learn",
+    "matplotlib",
+    "pyqtgraph",
+    "pytest>=7.0.0",
+]
+
+[project.optional-dependencies]
+dev = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
