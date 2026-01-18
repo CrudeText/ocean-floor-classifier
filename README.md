@@ -2,6 +2,8 @@
 
 A machine learning application for classifying ocean floor data.
 
+> **Note:** The GUI is currently in active development. For the fully functional legacy code from 2025, please check out [v0.1.0](https://github.com/yourusername/ocean-floor-classifier/releases/tag/v0.1.0).
+
 ## Features
 
 - Graphical User Interface (GUI)
@@ -114,6 +116,8 @@ python -m ofc.gui.app
 
 #### Labeling Tiles
 
+![Label Tab Example](images/Label_Tab_Example.png)
+
 1. Select an image from the left panel
 2. The image will be automatically tiled according to the grid configuration
 3. Use keyboard shortcuts to label tiles:
@@ -129,6 +133,16 @@ python -m ofc.gui.app
 - Add classes using the text input and "Add" button in the right panel
 - Remove classes by selecting them and clicking "Remove Selected"
 - Classes are saved to `configs/classes.json`
+
+#### Training
+
+![Training Parameters Example](images/Training_Parameters_Example.png)
+
+Configure training parameters in the Training tab, including model architecture, hyperparameters, and training options.
+
+![Training Monitoring Example](images/Training_Monitoring_Example.png)
+
+Monitor training progress in real-time with live plots showing loss, accuracy, and other metrics.
 
 #### Project Structure
 
