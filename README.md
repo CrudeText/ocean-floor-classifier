@@ -1,160 +1,165 @@
 # Ocean Floor Classifier
 
-This repository provides a complete pipeline for slicing ocean floor images into tiles, training a CNN to classify each tile by substrate type, and generating inference overlays on the original images.
+A machine learning application for classifying ocean floor data.
 
----
+## Features
 
-## Repository Structure
+- Graphical User Interface (GUI)
+- Command Line Interface (CLI)
+- Core classification functionality
+- Training modules
+- Inference capabilities
 
-```plaintext
-.
-├── data
-│   ├── raw_images/           # Original JPG images
-│   ├── sliced_images/        # Output tiles + labels.csv (generated)
-│   └── examples/             # Example images for README
-│       ├── raw_example.JPG
-│       ├── slice_example_1.png
-│       ├── slice_example_2.png
-│       ├── slice_example_3.png
-│       └── inference_example.JPG
-│
-├── scripts
-│   ├── ImageSlicer.py        # Slice raw images into tiles + stub labels.csv
-│   ├── OceanFloorClassifier.py # Train CNN on the tiled data
-│   └── InferenceGrid.py      # Run inference on raw images w/ grid overlay
-│
-├── models/                   # Saved runs
-│   └── run_<YYYYMMDD_HHMMSS>/
-│       ├── params.json       # Training parameters and class list
-│       ├── training_log.csv  # CSV log of loss/accuracy per epoch
-│       ├── model.h5          # Saved Keras model
-│       └── inference_results/ # Overlaid inference output images
-│
-├── requirements.txt         # Python dependencies
-└── README.md                 # This documentation
+## Installation
+
+### Basic Installation
+
+```bash
+pip install -e .
 ```
 
----
+### GPU Support (CUDA)
 
-## Setup & Dependencies
+For GPU acceleration during training, a GPU-enabled virtual environment has been set up using Python 3.12.
 
-1. **Clone the repository**:
+#### Quick Start (GPU Environment)
 
+A virtual environment with CUDA-enabled PyTorch is already configured in `venv_gpu/`.
+
+**Windows PowerShell:**
+```powershell
+.\activate_gpu_env.ps1
+```
+
+**Windows Command Prompt:**
+```cmd
+activate_gpu_env.bat
+```
+
+**Manual activation:**
+```bash
+venv_gpu\Scripts\activate
+```
+
+Then run the application:
+```bash
+python -m ofc.gui.app
+```
+
+#### Setting Up GPU Support (If Needed)
+
+If you need to recreate the GPU environment:
+
+1. **Python 3.12 is required** (CUDA builds not available for Python 3.14):
    ```bash
-   git clone https://github.com/yourusername/OceanFloorClassifier.git
-   cd OceanFloorClassifier
+   py -3.12 -m venv venv_gpu
    ```
 
-2. **Create & activate a conda environment**:
-
+2. Activate the environment:
    ```bash
-   conda create -n ocean_env python=3.9
-   conda activate ocean_env
+   venv_gpu\Scripts\activate
    ```
 
-3. **Install requirements**:
-
+3. Install the project:
    ```bash
-   pip install -r requirements.txt
+   pip install -e .
    ```
 
-4. **Verify GPU availability** (TensorFlow):
-
-   ```python
-   import tensorflow as tf
-   print(tf.config.list_physical_devices('GPU'))
+4. Install CUDA-enabled PyTorch:
+   ```bash
+   pip uninstall torch torchvision -y
+   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
    ```
 
----
+5. Verify GPU detection:
+   ```bash
+   python -c "import torch; print('CUDA available:', torch.cuda.is_available()); print('GPU:', torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'CPU only')"
+   ```
+
+#### For Python 3.14:
+
+Currently, only CPU-only builds are available. GPU support will be available in future PyTorch releases. The application will work with CPU, but training will be slower.
 
 ## Usage
 
-### 1. Slice Images
+### GUI Mode
 
-Generate tiles from raw JPGs and stub a `labels.csv`:
+#### Installation
 
-```bash
-python scripts/ImageSlicer.py \
-  --input-dir data/raw_images \
-  --output-dir data/sliced_images \
-  --tile-size 512 \
-  --csv-name labels.csv
-```
-
-After slicing, you'll have:
-
-- `data/sliced_images/*.png`
-- `data/sliced_images/labels.csv` (tile\_name,label)
-
-### 2. Train Classifier
-
-Train a CNN on the sliced data:
+First, install the package and dependencies:
 
 ```bash
-python scripts/OceanFloorClassifier.py \
-  --image-dir data/sliced_images \
-  --csv-path data/sliced_images/labels.csv \
-  --epochs 100 \
-  --batch-size 32 \
-  --validation-split 0.2
+pip install -e .
 ```
 
-- Reads your `labels.csv`
-- Splits into train/validation
-- Logs training to `models/run_<timestamp>/training_log.csv`
-- Saves artifacts in `models/run_<timestamp>/`
+This will install PySide6, Pillow, numpy, and other required dependencies.
 
-### 3. Run Inference
-
-Overlay predicted labels on the original raw images:
+#### Running the GUI
 
 ```bash
-python scripts/InferenceGrid.py \
-  --model-dir models/run_<timestamp> \
-  --raw-dir data/raw_images \
-  --tile-size 512 \
-  --resize 128 \
-  --output-name inference_results
+python -m ofc.gui.app
 ```
 
-Results are saved under:
+#### Creating a Project
+
+1. Click "New Project..." button
+2. Select an empty folder (or a folder you want to use for the project)
+3. Enter a project name when prompted
+4. The project structure will be created automatically
+
+#### Adding Images
+
+1. Copy your raw images (JPG, PNG, TIF, TIFF) into your project's raw images folder (configurable in project settings)
+2. Click "Refresh Images" button in the Label tab to update the images list
+
+#### Labeling Tiles
+
+1. Select an image from the left panel
+2. The image will be automatically tiled according to the grid configuration
+3. Use keyboard shortcuts to label tiles:
+   - **1-9**: Assign class at that index (1 = first class, 2 = second class, etc.)
+   - **0**: Unlabel (set to empty)
+   - **→ / D**: Next tile
+   - **← / A**: Previous tile
+   - **↑ / ↓**: Jump ±10 tiles
+4. Labels are saved immediately to `data/labels.csv`
+
+#### Managing Classes
+
+- Add classes using the text input and "Add" button in the right panel
+- Remove classes by selecting them and clicking "Remove Selected"
+- Classes are saved to `configs/classes.json`
+
+#### Project Structure
+
+When you create a project, the following structure is created:
 
 ```
-models/run_<timestamp>/inference_results/
+<project_root>/
+  project.json          # Project metadata
+  data/
+    labels.csv          # Tile labels (auto-generated)
+  configs/
+    grid.json           # Grid/tiling configuration
+    classes.json         # Class names list
+  runs/
+    train/              # Training outputs
+    infer/              # Inference outputs
+  exports/
+    tiles/              # Exported tiles
 ```
 
----
+Note: Raw images are stored in an external folder path (configurable in project settings).
 
-## Examples
+### CLI Mode
+```bash
+python -m ofc.cli.main
+```
 
-**Raw Input**
+## Project Structure
 
-![Raw example](data/examples/raw_example.JPG)
-(taken in Trébeurden, France)
-
-**Sliced Tiles**
-
-- Mussel slice:  
-  ![Mussel slice](data/examples/slice_example_1.png)
-
-- Algae slice:  
-  ![Algae slice](data/examples/slice_example_2.png)
-
-- Rock slice:  
-  ![Rock slice](data/examples/slice_example_3.png)
-
-**Inference Overlay (on another image)**
-
-![Inference result](data/examples/inference_example.JPG)
-
----
-
-## License
-
-MIT © William Arranz
-
----
-
-*Feel free to contribute, open issues, and send pull requests!*
-
+- `src/ofc/core/` - Core application logic
+- `src/ofc/gui/` - Graphical user interface
+- `src/ofc/cli/` - Command line interface
+- `tests/` - Unit and integration tests
 

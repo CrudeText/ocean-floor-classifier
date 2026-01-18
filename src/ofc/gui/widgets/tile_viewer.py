@@ -1,0 +1,2 @@
+"""Tile viewer widget."""
+

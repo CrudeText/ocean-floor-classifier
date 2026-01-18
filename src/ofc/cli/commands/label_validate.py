@@ -1,0 +1,2 @@
+"""Label validation command."""
+
