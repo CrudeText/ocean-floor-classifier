@@ -2,7 +2,7 @@
 
 A machine learning application for classifying ocean floor data.
 
-> **Note:** The GUI is currently in active development. For the fully functional legacy code from 2025, please check out [v0.1.0](https://github.com/yourusername/ocean-floor-classifier/releases/tag/v0.1.0).
+> **Note:** The GUI is currently in active development. For the fully functional legacy code from 2025, please check out [v0.1.0](https://github.com/CrudeText/ocean-floor-classifier/releases/tag/v0.1.0).
 
 ## Features
 
