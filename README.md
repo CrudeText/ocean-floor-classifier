@@ -177,4 +177,5 @@ python -m ofc.cli.main
 - `src/ofc/cli/` - Command line interface
 - `tests/` - Unit and integration tests
 
+#### Inference Example
 ![Inference Example](images/Inference_Example.jpg)
