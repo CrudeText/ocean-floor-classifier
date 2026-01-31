@@ -42,7 +42,7 @@ class ProjectCreationDialog(QDialog):
         self.project_folder: Optional[Path] = None
         # Set default raw images folder path for testing
         default_raw_path = Path(
-            r"C:\Users\willi\OneDrive\Bureau\Active Projects\OceanFloorClassifier\Usable Data\JPG"
+            r"D:\A - Project Data\OceanFloorClassifier\Usable Data\JPG"
         )
         if default_raw_path.exists():
             self.raw_images_folder: Optional[Path] = default_raw_path

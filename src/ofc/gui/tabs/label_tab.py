@@ -356,7 +356,7 @@ class LabelTab(QWidget):
 
         # Set default preview folder for testing
         default_preview_folder = Path(
-            r"C:\Users\willi\OneDrive\Bureau\Active Projects\OceanFloorClassifier\Usable Data\JPG"
+            r"D:\A - Project Data\OceanFloorClassifier\Usable Data\JPG"
         )
         if default_preview_folder.exists():
             self.preview_folder = default_preview_folder

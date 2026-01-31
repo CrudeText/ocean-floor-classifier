@@ -62,7 +62,7 @@ class MainWindow(QWidget):
     def auto_open_default_project(self):
         """Auto-open the default project for testing."""
         default_project_path = Path(
-            r"C:\Users\willi\OneDrive\Bureau\Active Projects\OceanFloorClassifier\Testing\Projects\v0.2.0\Test 1"
+            r"D:\A - Project Data\OceanFloorClassifier\Testing\Projects\v0.2.0\Test 1"
         )
         
         if default_project_path.exists():

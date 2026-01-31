@@ -35,7 +35,7 @@ class ProjectPaths:
         # Default raw images folder for testing
         if raw_images_folder is None:
             default_path = Path(
-                r"C:\Users\willi\OneDrive\Bureau\Active Projects\OceanFloorClassifier\Usable Data\JPG"
+                r"D:\A - Project Data\OceanFloorClassifier\Usable Data\JPG"
             )
             raw_images_folder = default_path if default_path.exists() else root / "data" / "raw"
         else:
@@ -240,7 +240,7 @@ class OceanProject:
         else:
             # Use default for backward compatibility or set default
             default_path = Path(
-                r"C:\Users\willi\OneDrive\Bureau\Active Projects\OceanFloorClassifier\Usable Data\JPG"
+                r"D:\A - Project Data\OceanFloorClassifier\Usable Data\JPG"
             )
             if default_path.exists():
                 self.paths.raw_images_folder = default_path
