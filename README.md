@@ -178,4 +178,4 @@ python -m ofc.cli.main
 - `tests/` - Unit and integration tests
 
 #### Inference Example
-![Inference Example](images/Inference_Example.jpg)
+![Inference Example](images/Inference_Example.png)
